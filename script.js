@@ -6,13 +6,10 @@ const heroImageDiv = document.getElementById("heroImage");
 const serachButton = document.getElementById("searchButton");
 const searchInput = document.getElementById("searchInput");
 
-const getSuperHero = (id) => {
-  fetch(`${BASE_URL}/${id}`)
-    .then((response) => response.json())
-    .then((json) => {
-      const superHero = json;
-      getStatsHTML(superHero);
-    });
+const getSuperHero = async (id) => {
+  const response = await fetch(`${BASE_URL}/${id}`);
+  const superHero = await response.json();
+  getStatsHTML(superHero);
 };
 
 const statToEmoji = {
@@ -24,14 +21,11 @@ const statToEmoji = {
   combat: "⚔️",
 };
 
-const getSearchHero = (name) => {
-  fetch(`${BASE_URL}/search/${name}`)
-    .then((response) => response.json())
-    .then((json) => {
-      const hero = json.results[0];
-
-      getStatsHTML(hero);
-    });
+const getSearchHero = async (name) => {
+  const response = await fetch(`${BASE_URL}/search/${name}`);
+  const json = await response.json();
+  const hero = json.results[0];
+  getStatsHTML(hero);
 };
 
 const getStatsHTML = (character) => {
